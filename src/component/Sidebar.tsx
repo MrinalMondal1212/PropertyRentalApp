@@ -5,7 +5,6 @@ import {
   Delete,
   LayoutDashboard,
   LogOut,
-  MapPinHouse,
   SquareChartGantt,
   Users,
 } from "lucide-react";
@@ -37,13 +36,6 @@ const Sidebar = () => {
         >
           <LayoutDashboard /> Dashboard
         </NavLink>
-        {/* all propeties */}
-        <NavLink
-          to="/admindashboard/adminproperties"
-          className={({ isActive }) => (isActive ? activeLink : normalLink)}
-        >
-          <MapPinHouse /> Properties
-        </NavLink>
 
         {/* Add Properties Link */}
         <NavLink
@@ -55,6 +47,12 @@ const Sidebar = () => {
 
         {/* Manage Properties Link */}
         <NavLink
+          to="/admindashboard/removeproperties"
+          className={({ isActive }) => (isActive ? activeLink : normalLink)}
+        >
+          <Delete /> Remove
+        </NavLink>
+        <NavLink
           to="/admindashboard/manageproperties"
           className={({ isActive }) => (isActive ? activeLink : normalLink)}
         >
@@ -65,12 +63,6 @@ const Sidebar = () => {
           className={({ isActive }) => (isActive ? activeLink : normalLink)}
         >
           <LayoutDashboard /> Bookings
-        </NavLink>
-        <NavLink
-          to="/admindashboard/removeproperties"
-          className={({ isActive }) => (isActive ? activeLink : normalLink)}
-        >
-          <Delete /> Remove
         </NavLink>
         <NavLink
           to="/admindashboard/user"

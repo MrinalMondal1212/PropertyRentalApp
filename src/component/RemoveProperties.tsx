@@ -94,7 +94,7 @@ const RemoveProperties = () => {
                       onClick={() => handleDelete(property.$id)}
                       className="bg-black w-[100px] text-white px-4 py-2 rounded-lg hover:bg-red-500 "
                     >
-                      Delete
+                      Remove
                     </button>
                   </div>
                 </div>

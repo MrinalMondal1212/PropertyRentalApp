@@ -1,4 +1,4 @@
-import { MoveLeft, MoveRight, Search } from "lucide-react";
+import { MoveLeft, MoveRight } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { PieChart } from "@mui/x-charts/PieChart";
@@ -11,7 +11,7 @@ import { productsList } from "../store/adminproducts/adminproducts.thunk";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import { BUCKET_ID, storage } from "../lib/appwriteConfig";
-import Skeleton from "@mui/material/Skeleton";
+// import Skeleton from "@mui/material/Skeleton";
 
 const MiddleDashboard = () => {
   const { properties, loading, error } = useSelector(
