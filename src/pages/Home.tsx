@@ -23,6 +23,8 @@ const Home = () => {
   useEffect(() => {
     dispatch(productsList());
   }, [dispatch]);
+
+
   // this is the code where property type will be add in different palces !!!!
   const villas = properties.filter(
     (p: any) => p.type?.toLowerCase() === "villa",
@@ -33,7 +35,7 @@ const Home = () => {
   );
 
   const bungalows = properties.filter(
-    (p: any) => p.type?.toLowerCase() === "bunglow",
+    (p: any) => p.type?.toLowerCase() === "bungalow",
   );
 
   const cities = ["New York City", "Los Angeles", "Chicago", "Houston"];

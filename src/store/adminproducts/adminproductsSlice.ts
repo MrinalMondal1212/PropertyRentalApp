@@ -6,7 +6,7 @@ import {
 } from "./adminproducts.thunk";
 
 interface Product {
-  id: string;
+  $id: string;
   name: string;
   description: string;
   price: string;
@@ -50,7 +50,7 @@ const adminproductsSlice = createSlice({
       // ✅ DELETE
       .addCase(deletePropertyFromDB.fulfilled, (state, action) => {
         state.properties = state.properties.filter(
-          (property) => property.id !== action.payload
+          (property) => property.$id !== action.payload
         );
       })
 

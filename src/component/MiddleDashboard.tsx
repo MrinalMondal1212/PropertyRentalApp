@@ -1,6 +1,6 @@
 import { MoveLeft, MoveRight, Search } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import { PieChart } from "@mui/x-charts/PieChart";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
@@ -9,22 +9,49 @@ import "swiper/css/navigation";
 import { BarChart } from "@mui/x-charts";
 import { productsList } from "../store/adminproducts/adminproducts.thunk";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { BUCKET_ID, storage } from "../lib/appwriteConfig";
+import Skeleton from "@mui/material/Skeleton";
 
 const MiddleDashboard = () => {
-  const data = [
-    { city: "Kolkata", properties: 30 },
-    { city: "Mumbai", properties: 20 },
-    { city: "Bangalore", properties: 35 },
-    { city: "Delhi", properties: 25 },
-    { city: "Hydrabad", properties: 8 },
-    { city: "Pune", properties: 12 },
-    { city: "chennai", properties: 5 },
-  ];
   const { properties, loading, error } = useSelector(
     (state: any) => state.adminproducts,
   );
+  // showing total property
+  const totalProperty = properties.length;
+  //showing individual property
+  const villasCount = properties.filter(
+    (p: any) => p.type?.toLowerCase() === "villa",
+  ).length;
+
+  const apartmentsCount = properties.filter(
+    (p: any) => p.type?.toLowerCase() === "apartment",
+  ).length;
+
+  const bungalowCount = properties.filter(
+    (p: any) => p.type?.toLowerCase() === "bungalow",
+  ).length;
+
+  // showing city and apratment via pie chart and bar chart
+  const locationData = properties.reduce((acc: any, curr: any) => {
+    const location = curr.location; // from Appwrite
+
+    if (!acc[location]) {
+      acc[location] = 0;
+    }
+
+    acc[location]++;
+
+    return acc;
+  }, {});
+  const chartData = Object.keys(locationData).map((loc) => ({
+    location: loc,
+    count: locationData[loc],
+  }));
+
+  const prevRef = useRef(null);
+  const nextRef = useRef(null);
+
   const dispatch = useDispatch<any>();
   useEffect(() => {
     dispatch(productsList());
@@ -32,36 +59,29 @@ const MiddleDashboard = () => {
 
   return (
     <div className=" flex justify-center bg-[#F5F7FB]">
-      <div className="flex flex-col  justify-center w-[1000px]">
-        <div className="flex items-center mt-[50px]   h-[66px] gap-5 bg-white rounded-[40px] px-4 py-2 w-[440px]">
-          <Search size={30} />
-          <input
-            type="text"
-            placeholder="Search..."
-            className="bg-transparent outline-none flex-1"
-          />
-        </div>
-
+      <div className="flex flex-col  justify-center w-[1400px]">
         {/* how many property is live !!!!!! */}
         <div className="flex mt-[50px] justify-between bg-white rounded-xl shadow-md px-6 py-4">
           <div className="text-center">
-            <p className="text-2xl font-bold text-blue-600">125</p>
+            <p className="text-2xl font-bold text-blue-600">{totalProperty}</p>
             <p className="text-sm text-gray-500">Live Properties</p>
           </div>
 
           <div className="text-center">
-            <p className="text-2xl font-bold text-blue-600">45</p>
-            <p className="text-sm text-gray-500">For Sale</p>
+            <p className="text-2xl font-bold text-blue-600">{bungalowCount}</p>
+            <p className="text-sm text-gray-500">Bungalow</p>
           </div>
 
           <div className="text-center">
-            <p className="text-2xl font-bold text-blue-600">30</p>
-            <p className="text-sm text-gray-500">For Rent</p>
+            <p className="text-2xl font-bold text-blue-600">
+              {apartmentsCount}
+            </p>
+            <p className="text-sm text-gray-500">Apartment</p>
           </div>
 
           <div className="text-center">
-            <p className="text-2xl font-bold text-blue-600">12</p>
-            <p className="text-sm text-gray-500">New Listings</p>
+            <p className="text-2xl font-bold text-blue-600">{villasCount}</p>
+            <p className="text-sm text-gray-500">Villa</p>
           </div>
         </div>
         <div>
@@ -70,36 +90,51 @@ const MiddleDashboard = () => {
 
         {/* ! carousel is here !!!!!! */}
         {loading && (
-          <Box sx={{ display: "flex" }}>
-            <CircularProgress />
+          <Box sx={{ display: "flex", justifyContent: "center" }}>
+            <CircularProgress size={100} />
           </Box>
         )}
         {error && <p>{error}</p>}
-        <div className="w-[1000px]  mx-auto mt-10 relative">
+        <div className="w-[1400px]  mx-auto mt-3 relative">
           {/* Buttons OUTSIDE */}
-          <button className="prev-btn absolute  w-[60px] h-[60px] bg-black rounded-full flex justify-center items-center left-[-60px] top-1/2 px-4 py-2">
+          <button
+            ref={prevRef}
+            className="prev-btn absolute  w-[60px] h-[60px] bg-black rounded-full flex justify-center items-center left-[-60px] top-1/2 px-4 py-2"
+          >
             <MoveLeft color="#FFA400" size={45} />
           </button>
 
-          <button className="next-btn absolute w-[60px] h-[60px] bg-black rounded-full flex justify-center items-center right-[-60px] top-1/2 px-4 py-2">
+          <button
+            ref={nextRef}
+            className="next-btn absolute w-[60px] h-[60px] bg-black rounded-full flex justify-center items-center right-[-60px] top-1/2 px-4 py-2"
+          >
             <MoveRight color="#FFA400" size={45} />
           </button>
 
           <Swiper
-            className="mb-[50px] mt-[50px]"
-            modules={[Navigation]}
+            modules={[Navigation , Autoplay]}
             spaceBetween={20}
-            slidesPerView={2}
+            slidesPerView={4}
             loop={true}
+            speed={800}
+            autoplay={{
+              delay: 2000, // ⏱️ time between slides
+              disableOnInteraction: false,
+               pauseOnMouseEnter: true, // keeps autoplay even after click
+            }}
             navigation={{
-              nextEl: ".next-btn",
-              prevEl: ".prev-btn",
+              prevEl: prevRef.current,
+              nextEl: nextRef.current,
+            }}
+            onBeforeInit={(swiper: any) => {
+              swiper.params.navigation.prevEl = prevRef.current;
+              swiper.params.navigation.nextEl = nextRef.current;
             }}
           >
             {properties?.map((property: any) => (
               <SwiperSlide key={property.$id}>
                 <div
-                  className="h-[650px] border p-3 border-[#FFA400] flex flex-col  text-black
+                  className="h-[600px] border p-3 border-[#FFA400] flex flex-col  mb-[65px] text-black
              text-xl rounded-[40px]"
                 >
                   <img
@@ -109,7 +144,7 @@ const MiddleDashboard = () => {
                         : storage.getFileView(BUCKET_ID, property.image) // use Appwrite file
                     }
                     alt={property.name}
-                    className="w-[500px] rounded-[40px] h-[350px] object-cover"
+                    className="w-[400px] rounded-[40px] h-[350px] object-cover"
                   />
                   <div className="flex mt-3 justify-between">
                     <div>
@@ -144,36 +179,41 @@ const MiddleDashboard = () => {
         <p className="text-[33px] font-medium mb-[25px] mt-[25px]">
           Property Type Distribution
         </p>
-        <div className="flex ">
-          <PieChart
-            series={[
-              {
-                data: [
-                  { id: 0, value: 10, label: "Apartment" },
-                  { id: 1, value: 15, label: "Pg" },
-                  { id: 2, value: 20, label: "House" },
-                ],
-              },
-            ]}
-            width={300}
-            height={400}
-          />
-          <BarChart
-            xAxis={[
-              {
-                scaleType: "band",
-                data: data.map((item) => item.city),
-              },
-            ]}
-            series={[
-              {
-                data: data.map((item) => item.properties),
-                label: "Properties",
-              },
-            ]}
-            width={600}
-            height={500}
-          />
+        <div className="flex justify-between items-center  mb-[256px]">
+          <div>
+            <PieChart
+              series={[
+                {
+                  data: [
+                    { id: 0, value: apartmentsCount, label: "Apartment" },
+                    { id: 1, value: villasCount, label: "Villa" },
+                    { id: 2, value: bungalowCount, label: "Bungalow" },
+                  ],
+                },
+              ]}
+              width={500}
+              height={400}
+            />
+          </div>
+          {/* barchart is here  */}
+          <div>
+            <BarChart
+              xAxis={[
+                {
+                  scaleType: "band",
+                  data: chartData.map((item) => item.location),
+                },
+              ]}
+              series={[
+                {
+                  data: chartData.map((item) => item.count),
+                  label: "Properties",
+                },
+              ]}
+              width={700}
+              height={500}
+            />
+          </div>
         </div>
 
         {/* here is the appwrite data or backend data  */}

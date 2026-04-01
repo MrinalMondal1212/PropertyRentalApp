@@ -90,14 +90,7 @@ const UserNavbar = () => {
                     Our Services
                   </NavLink>
 
-                  <NavLink
-                    className={({ isActive }) =>
-                      isActive ? activeLink : normalLink
-                    }
-                    to="/communities"
-                  >
-                    Communities
-                  </NavLink>
+
 
                   <NavLink
                     className={({ isActive }) =>

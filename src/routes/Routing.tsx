@@ -4,11 +4,9 @@ import Wrapper from "../userlayout/Wrapper";
 import Home from "../pages/Home";
 import Aboutus from "../pages/Aboutus";
 import Ourservices from "../pages/Ourservices";
-import Communities from "../pages/Communities";
+
 import Gallery from "../pages/Gallery";
-import Portfolio from "../pages/Portfolio";
-import Checkfaq from "../pages/Checkfaq";
-import Termsandcondition from "../pages/Termsandcondition";
+
 import ContactUs from "../pages/ContactUs";
 // import AdminDashboard from "../pages/AdminDashboard";
 import AdminWrapper from "../userlayout/AdminWrapper";
@@ -42,24 +40,8 @@ const Routing = createBrowserRouter([
         element: <Ourservices />,
       },
       {
-        path: "communities",
-        element: <Communities />,
-      },
-      {
         path: "gallery",
         element: <Gallery />,
-      },
-      {
-        path: "portfolio",
-        element: <Portfolio />,
-      },
-      {
-        path: "faq",
-        element: <Checkfaq />,
-      },
-      {
-        path: "termsandcondition",
-        element: <Termsandcondition />,
       },
       {
         path: "contactus",

@@ -6,6 +6,7 @@ import { storage, BUCKET_ID } from "../lib/appwriteConfig";
 import CircularProgress from "@mui/material/CircularProgress";
 import Box from "@mui/material/Box";
 
+import "swiper/css";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -15,10 +16,13 @@ import DialogActions from "@mui/material/DialogActions";
 import Button from "@mui/material/Button";
 import {
   addProperty,
-  deletePropertyFromDB,
   productsList,
 } from "../store/adminproducts/adminproducts.thunk";
-import toast from "react-hot-toast";
+// import toast from "react-hot-toast";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import Select from "@mui/material/Select";
+import MenuItem from "@mui/material/MenuItem";
 // import { deleteProperty } from "../store/adminproducts/adminproductsSlice";
 // import toast from "react-hot-toast";
 // import { BUCKET_ID, storage } from "../appwrite/appwriteConfig";
@@ -67,23 +71,7 @@ const Addproperties = () => {
       [e.target.name]: e.target.value,
     });
   };
-
-  // this is the delete function is here !!!!
-
-  const handleDelete = async (id: string) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this property?",
-    );
-
-    if (!confirmDelete) return;
-
-    try {
-      await dispatch(deletePropertyFromDB(id)).unwrap();
-      toast.success("Property deleted successfully ✅");
-    } catch (error) {
-      toast.error("Failed to delete property ❌");
-    }
-  };
+  const PROPERTY_TYPES = ["apartment", "villa", "bungalow"];
 
   return (
     <>
@@ -140,13 +128,21 @@ const Addproperties = () => {
                 fullWidth
                 sx={{ marginBottom: "24px" }}
               />
-              <TextField
-                name="type"
-                label="Property type"
-                onChange={handleChange}
-                fullWidth
-                sx={{ marginBottom: "24px" }}
-              />
+              <FormControl fullWidth sx={{ marginBottom: "24px" }}>
+                <InputLabel>Property Type</InputLabel>
+                <Select
+                  name="type"
+                  value={formData.type}
+                  label="Property Type"
+                  onChange={handleChange}
+                >
+                  {PROPERTY_TYPES.map((type) => (
+                    <MenuItem key={type} value={type}>
+                      {type.charAt(0).toUpperCase() + type.slice(1)}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
 
               <Button variant="contained" component="label">
                 Upload Image
@@ -184,13 +180,13 @@ const Addproperties = () => {
         </Box>
       )}
       {error && <p>{error}</p>}
-      <div className=" flex justify-center mt-[45px] ">
-        <div>
+      <div className=" flex justify-center  mt-[45px] ">
+        <div className="flex flex-wrap justify-center gap-6">
           {properties?.map((property: any) => {
             console.log(property.image);
             return (
               <div
-                className="w-[900px] border border-[#FFA400] flex mb-5 rounded-xl overflow-hidden h-[250px]"
+                className="w-[700px] border border-[#FFA400] flex mb-5 rounded-xl overflow-hidden h-[250px]"
                 key={property.$id}
               >
                 {/* Image Section */}
@@ -216,22 +212,10 @@ const Addproperties = () => {
                     <p className="text-lg mb-1">
                       Location: {property.location}
                     </p>
-                    <p className="text-lg mb-1">Type: {property.Type}</p>
+                    <p className="text-lg mb-1">Type: {property.type}</p>
                     <p className="text-sm text-gray-600">
                       Description: {property.description}
                     </p>
-                  </div>
-
-                  <div className="flex justify-end gap-2">
-                    <button className="bg-black w-[100px] text-white px-4 py-2 rounded-lg">
-                      Edit
-                    </button>
-                    <button
-                      onClick={() => handleDelete(property.$id)}
-                      className="bg-black w-[100px] text-white px-4 py-2 rounded-lg"
-                    >
-                      Delete
-                    </button>
                   </div>
                 </div>
               </div>

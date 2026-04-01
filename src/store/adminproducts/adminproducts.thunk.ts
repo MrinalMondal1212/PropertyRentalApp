@@ -20,7 +20,7 @@ export const productsList = createAsyncThunk(
 
       // ✅ IMPORTANT: Convert Appwrite data → your format
       return response.documents.map((doc: any) => ({
-        id: doc.$id,
+        $id: doc.$id,
         name: doc.Name,
         description: doc.Description,
         price: doc.Price,
@@ -74,7 +74,7 @@ export const addProperty = createAsyncThunk(
 
       // ✅ Convert response → your format
       return {
-        id: response.$id,
+        $id: response.$id,
         name: response.Name,
         description: response.Description,
         price: response.Price,

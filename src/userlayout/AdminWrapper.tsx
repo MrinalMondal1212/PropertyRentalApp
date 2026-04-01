@@ -3,7 +3,7 @@
 
 import { Outlet } from "react-router-dom";
 import Sidebar from "../component/Sidebar";
-import RightSidebar from "../component/RightSidebar";
+
 
 const AdminWrapper = () => {
   return (
@@ -19,8 +19,6 @@ const AdminWrapper = () => {
         <Outlet />
       </main>
 
-      {/* 3. Permanent Right Sidebar (15% width) */}
-      <RightSidebar />
       
     </div>
   );

@@ -9,10 +9,11 @@ import {
   SquareChartGantt,
   Users,
 } from "lucide-react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate()
   const normalLink =
     "flex gap-[30px] p-2 rounded-lg transition-all text-gray-600";
   const activeLink =
@@ -80,7 +81,7 @@ const Sidebar = () => {
       </div>
 
       {/* Logout at the bottom */}
-      <div className="flex items-end cursor-pointer hover:text-red-500 transition-colors">
+      <div onClick={()=> navigate("/")} className="flex items-end cursor-pointer hover:text-red-500 transition-colors">
         <p className="flex gap-[30px]">
           <LogOut /> Log Out
         </p>
