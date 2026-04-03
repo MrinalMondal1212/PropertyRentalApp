@@ -19,11 +19,11 @@ const Home = () => {
   const { properties, loading, error } = useSelector(
     (state: any) => state.adminproducts,
   );
+  
   const dispatch = useDispatch<any>();
   useEffect(() => {
     dispatch(productsList());
   }, [dispatch]);
-
 
   // this is the code where property type will be add in different palces !!!!
   const villas = properties.filter(
@@ -63,12 +63,9 @@ const Home = () => {
         {/* hero section second container the blur container */}
         <div className="  backdrop-blur-md p-6 rounded-[40px]  h-[250px] w-[1250px] ">
           <div className="flex gap-[40px]">
-            <button className="text-[30px] text-[#E7A837] font-semibold">
+            <p className="text-[30px] text-[#E7A837] font-semibold">
               Buy
-            </button>
-            <button className="text-[30px] text-[#E7A837] font-semibold">
-              Rent
-            </button>
+            </p>
           </div>
 
           {/* drop down start */}
@@ -204,7 +201,7 @@ const Home = () => {
       </div>
 
       {/* this is the villa section over here !!!!! */}
-      <div className=" justify-between gap-4  mt-[120px] flex flex-wrap w-[1250px] ">
+      <div className=" justify-between gap-4  mb-[125px]  mt-[120px] flex flex-wrap w-[1250px] ">
         <PropertySection title="Villas" data={villas} />
       </div>
 
@@ -261,11 +258,11 @@ const Home = () => {
         </div>
       </div>
       {/* this  is the apratments section  here !!!!! */}
-      <div className="w-[1250px] h-[100vh]">
+      <div className="w-[1250px] h-[100vh]  mb-[125px]">
         <PropertySection title="Apartments" data={apartments} />
       </div>
       {/* this is the bunglow section !!!!!!! */}
-      <div className="w-[1250px] h-[100vh]">
+      <div className="w-[1250px] h-[100vh] mb-[125px]">
         <PropertySection title="Bungalows" data={bungalows} />
       </div>
     </div>

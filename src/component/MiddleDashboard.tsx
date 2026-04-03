@@ -9,11 +9,12 @@ import "swiper/css/navigation";
 import { BarChart } from "@mui/x-charts";
 import { productsList } from "../store/adminproducts/adminproducts.thunk";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef } from "react";
-import { BUCKET_ID, storage } from "../lib/appwriteConfig";
+import { useEffect, useRef, useState } from "react";
+import { BUCKET_ID, DATABASE_ID, databases, storage, USERS_COLLECTION_ID } from "../lib/appwriteConfig";
 // import Skeleton from "@mui/material/Skeleton";
 
 const MiddleDashboard = () => {
+  const [count, setCount] = useState(0);
   const { properties, loading, error } = useSelector(
     (state: any) => state.adminproducts,
   );
@@ -57,11 +58,32 @@ const MiddleDashboard = () => {
     dispatch(productsList());
   }, [dispatch]);
 
+  const getUsersCount = async () => {
+    try {
+      const res = await databases.listDocuments(
+        DATABASE_ID,
+        USERS_COLLECTION_ID
+      );
+
+      setCount(res.total); // 🔥 important
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getUsersCount();
+  }, []);
+
   return (
     <div className=" flex justify-center bg-[#F5F7FB]">
       <div className="flex flex-col  justify-center w-[1400px]">
         {/* how many property is live !!!!!! */}
         <div className="flex mt-[50px] justify-between bg-white rounded-xl shadow-md px-6 py-4">
+          <div className="text-center">
+            <p className="text-2xl font-bold text-blue-600">{count}</p>
+            <p className="text-sm text-gray-500">Total Users</p>
+          </div>
           <div className="text-center">
             <p className="text-2xl font-bold text-blue-600">{totalProperty}</p>
             <p className="text-sm text-gray-500">Live Properties</p>

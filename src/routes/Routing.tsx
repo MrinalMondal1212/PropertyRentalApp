@@ -1,26 +1,24 @@
 import { createBrowserRouter } from "react-router-dom";
 import Wrapper from "../userlayout/Wrapper";
-// import { Children } from "react"
 import Home from "../pages/Home";
 import Aboutus from "../pages/Aboutus";
-import Ourservices from "../pages/Ourservices";
-
 import Gallery from "../pages/Gallery";
-
 import ContactUs from "../pages/ContactUs";
-// import AdminDashboard from "../pages/AdminDashboard";
 import AdminWrapper from "../userlayout/AdminWrapper";
-// import Userproperties from "../component/Adminproperties"
-// import Adminproperties from "../component/Adminproperties"
 import Addproperties from "../component/Addproperties";
 import ManageProperties from "../component/ManageProperties";
 import Booking from "../component/Booking";
 import RemoveProperties from "../component/RemoveProperties";
-import User from "../component/User";
 import MiddleDashboard from "../component/MiddleDashboard";
 import Adminproperties from "../component/Adminproperties";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
+import FAQ from "../component/FAQ";
+import TermsAndConditions from "../component/TermsAndConditions";
+import Properties from "../pages/Properties";
+import Services from "../pages/Services";
+import Checkout from "../component/Checkout";
+import MyOrders from "../pages/MyOrders";
 
 const Routing = createBrowserRouter([
   {
@@ -36,16 +34,36 @@ const Routing = createBrowserRouter([
         element: <Aboutus />,
       },
       {
-        path: "ourservices",
-        element: <Ourservices />,
+        path: "services",
+        element: <Services />,
       },
       {
         path: "gallery",
         element: <Gallery />,
       },
       {
+        path: "properties",
+        element: <Properties />,
+      },
+      {
+        path: "faq",
+        element: <FAQ />,
+      },
+      {
+        path: "termsandconditions",
+        element: <TermsAndConditions />,
+      },
+      {
         path: "contactus",
         element: <ContactUs />,
+      },
+      {
+        path: "/checkout/:id",
+        element: <Checkout />,
+      },
+      {
+        path: "myorders",
+        element: <MyOrders />,
       },
     ],
   },
@@ -54,9 +72,10 @@ const Routing = createBrowserRouter([
     element: <Login />,
   },
   {
-    path : "register",
-    element : <Register />
+    path: "register",
+    element: <Register />,
   },
+
   // this is the admin routes and very complecated
   {
     path: "admindashboard",
@@ -80,17 +99,14 @@ const Routing = createBrowserRouter([
         element: <ManageProperties />,
       },
       {
-        path: "bookings",
+        path: "booking",
         element: <Booking />,
       },
       {
         path: "removeproperties",
         element: <RemoveProperties />,
       },
-      {
-        path: "user",
-        element: <User />,
-      },
+    
     ],
   },
 ]);

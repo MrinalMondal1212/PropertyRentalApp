@@ -15,9 +15,11 @@ export const DATABASE_ID = import.meta.env.VITE_APPWRITE_DATABASE_ID;
 export const storage = new Storage(client);
 export const BUCKET_ID = import.meta.env.VITE_APPWRITE_BUCKET_ID;
 
+export const USERS_COLLECTION_ID = import.meta.env
+  .VITE_APPWRITE_USERS_COLLECTION_ID;
 
-export const USERS_COLLECTION_ID =
-  import.meta.env.VITE_APPWRITE_USERS_COLLECTION_ID;
+export const PROPERTIES_COLLECTION_ID = import.meta.env
+  .VITE_APPWRITE_PROPERTIES_COLLECTION_ID;
 
-export const PROPERTIES_COLLECTION_ID =
-  import.meta.env.VITE_APPWRITE_PROPERTIES_COLLECTION_ID;
+export const BOOKINGS_COLLECTION_ID = import.meta.env
+  .VITE_APPWRITE_BOOKINGS_COLLECTION_ID;

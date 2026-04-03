@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 
 const UserFooter = () => {
   return (
-    <div className="w-full flex justify-center ">
+    <div className="w-full flex justify-center mt-[185px] ">
       <div className="w-[1600px]  flex justify-center items-center  rounded-[40px] bg-black h-[900px] mb-3">
         <div className="w-[1250px] text-white flex flex-col  h-[600px]">
           {/* first part of the footer */}

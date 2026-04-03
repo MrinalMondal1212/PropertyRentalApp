@@ -9,13 +9,19 @@ import "swiper/css/grid";
 
 import { productsList } from "../store/adminproducts/adminproducts.thunk";
 import { storage, BUCKET_ID } from "../lib/appwriteConfig";
+import { useNavigate } from "react-router-dom";
 
 const Gallery = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch<any>();
 
   const { properties } = useSelector((state: any) => state.adminproducts);
 
   useEffect(() => {
+    window.scrollTo({
+      top : 0,
+      behavior : "smooth"
+    })
     dispatch(productsList());
   }, [dispatch]);
 
@@ -41,14 +47,16 @@ const Gallery = () => {
       >
         {properties?.map((property: any) => (
           <SwiperSlide key={property.id}>
-            <div className="relative group rounded-2xl overflow-hidden shadow-lg">
+            <div   onClick={()=> navigate("/properties")} className="relative group rounded-2xl overflow-hidden shadow-lg">
               {/* Image */}
               <img
+            
                 src={
                   property.image.startsWith("http")
                     ? property.image
                     : storage.getFileView(BUCKET_ID, property.image)
                 }
+              
                 className="w-full h-[300px] object-cover transform group-hover:scale-110 transition duration-500"
               />
 

@@ -6,7 +6,6 @@ import {
   LayoutDashboard,
   LogOut,
   SquareChartGantt,
-  Users,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 // import { Link } from "react-router-dom";
@@ -59,16 +58,10 @@ const Sidebar = () => {
           <SquareChartGantt /> Manage
         </NavLink>
         <NavLink
-          to="/admindashboard/bookings"
+          to="/admindashboard/booking"
           className={({ isActive }) => (isActive ? activeLink : normalLink)}
         >
           <LayoutDashboard /> Bookings
-        </NavLink>
-        <NavLink
-          to="/admindashboard/user"
-          className={({ isActive }) => (isActive ? activeLink : normalLink)}
-        >
-          <Users /> User
         </NavLink>
       </div>
 

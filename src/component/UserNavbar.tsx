@@ -48,6 +48,13 @@ const UserNavbar = () => {
                     Log In
                     <ChevronDown size={18} />
                   </button>
+                  <button
+                    onClick={() => navigate("/myorders")}
+                    className="flex items-center gap-2 px-6 py-2 border border-transparent rounded-full transition-all duration-300 hover:bg-black hover:text-[#E7A837] font-medium"
+                  >
+                    My Orders
+                    <ChevronDown size={18} />
+                  </button>
                 </div>
               </div>
             </div>
@@ -85,7 +92,7 @@ const UserNavbar = () => {
                     className={({ isActive }) =>
                       isActive ? activeLink : normalLink
                     }
-                    to="/ourservices"
+                    to="/services"
                   >
                     Our Services
                   </NavLink>
@@ -105,7 +112,7 @@ const UserNavbar = () => {
                     className={({ isActive }) =>
                       isActive ? activeLink : normalLink
                     }
-                    to="/portfolio"
+                    to="/properties"
                   >
                     Properties
                   </NavLink>
@@ -123,7 +130,7 @@ const UserNavbar = () => {
                     className={({ isActive }) =>
                       isActive ? activeLink : normalLink
                     }
-                    to="/termsandcondition"
+                    to="/termsandconditions"
                   >
                     Terms & Conditions
                   </NavLink>
