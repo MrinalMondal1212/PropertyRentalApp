@@ -4,6 +4,7 @@ import {
   deletePropertyFromDB,
   productsList,
 } from "./adminproducts.thunk";
+import type { store } from "../store";
 
 interface Product {
   $id: string;
@@ -70,3 +71,4 @@ const adminproductsSlice = createSlice({
 });
 
 export default adminproductsSlice.reducer;
+export type AppDispatch = typeof store.dispatch;

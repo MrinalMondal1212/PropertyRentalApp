@@ -27,6 +27,8 @@ const Properties = () => {
   );
   return (
     <>
+    {loading && <p>loading......</p>}
+    {error && <p>{error}</p>}
       <div className="mt-[150px] flex  flex-col justify-center items-center">
         {/* this  is the apratments section  here !!!!! */}
         <div className="w-[1250px] h-[100vh]  mb-[125px]">

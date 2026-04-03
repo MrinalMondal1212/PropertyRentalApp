@@ -9,10 +9,11 @@ import {
   DATABASE_ID,
   BOOKINGS_COLLECTION_ID,
 } from "../lib/appwriteConfig";
+import type { AppDispatch } from "../store/adminproducts/adminproductsSlice";
 
 const Checkout = () => {
   const { id } = useParams();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate()
 
