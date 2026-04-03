@@ -101,18 +101,24 @@ const UserFooter = () => {
                 className="h-[180px] p-[35px] w-[560px] rounded-[40px] border border-[#E7A837]"
                 placeholder="Message*"
               />
-              <div className="flex justify-center">
-                <button className="mt-5 font-light w-[220px] h-[65px] items-center rounded-[72px] justify-between text-[20px] pr-1 pl-10 border-2 border-[#E7A837]  bg-white flex text-black">
-                  Send{" "}
-                  <p className="w-[55px]  flex justify-center items-center h-[55px] rounded-full bg-black">
-                    <MoveUpRight color="#E7A837" />
-                  </p>
-                </button>
-              </div>
+              <button
+                className="mt-[80px] w-[220px] h-[65px] items-center rounded-[72px] 
+  justify-between text-[20px] pr-1 pl-10 bg-white flex text-[#E7A837]
+  transition-all duration-300 group
+  hover:bg-[#E7A837] hover:text-black hover:shadow-lg hover:scale-105"
+              >
+                Send
+                <p
+                  className="w-[55px] flex justify-center items-center h-[55px] rounded-full bg-black
+    transition-all duration-300 group-hover:bg-white group-hover:rotate-45"
+                >
+                  <MoveUpRight className="text-[#E7A837] group-hover:text-black transition-all duration-300" />
+                </p>
+              </button>
             </div>
           </div>
           {/* this is the icon section of footer */}
-          <div className="flex justify-center gap-3 mt-4">
+          <div className="flex justify-center mt-[25px]  gap-3">
             <button className="border w-[50px] h-[50px] flex justify-center items-center rounded-full bg-white">
               <FacebookIcon color="black" />
             </button>

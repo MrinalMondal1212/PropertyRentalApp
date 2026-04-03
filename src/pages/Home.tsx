@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import { ChevronDown, MoveUpRight, Search } from "lucide-react";
+import {  MoveUpRight, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -11,15 +11,21 @@ import { productsList } from "../store/adminproducts/adminproducts.thunk";
 import { BUCKET_ID, storage } from "../lib/appwriteConfig";
 import { useNavigate } from "react-router-dom";
 import PropertySection from "../component/PropertySection";
+import CustomDropdown from "../component/CustomDropdown";
 const Home = () => {
-  //   const villas = properties.filter(p => p.type === "Villa");
-  // const apartments = properties.filter(p => p.type === "Apartment");
   const navigate = useNavigate();
-  const [selected, setSelected] = useState("New York City");
+  const [location, setLocation] = useState("Kolkata");
+  const [type, setType] = useState("Villa");
+  const [price, setPrice] = useState("₹5000");
+
+  const cities = ["Kolkata", "Delhi", "Pune", "Bangalore", "Mumbai"];
+  const types = ["Villa", "Apartment", "Bungalow"];
+  const prices = ["₹5000", "₹10000", "₹20000"];
+
   const { properties, loading, error } = useSelector(
     (state: any) => state.adminproducts,
   );
-  
+
   const dispatch = useDispatch<any>();
   useEffect(() => {
     dispatch(productsList());
@@ -38,165 +44,77 @@ const Home = () => {
     (p: any) => p.type?.toLowerCase() === "bungalow",
   );
 
-  const cities = ["New York City", "Los Angeles", "Chicago", "Houston"];
   return (
     <div className="w-full mt-[135px]  flex flex-col justify-center items-center">
+      {/* this is the banner section of this website  */}
+      {/* this is banner text area start */}
       <div className="h-[1076px] rounded-[40px] w-[1600px] bg-[linear-gradient(269.94deg,rgba(249,249,249,0)_31.15%,rgba(92,92,92,0.41)_49.66%,rgba(68,68,68,0.51)_61.21%,rgba(52,52,52,0.68)_73.82%,rgba(30,30,30,0.75)_86.43%,rgba(0,0,0,0.92)_99.94%),url('/images/HeroSectionimage.jpg')]  bg-cover bg-center flex   flex-col items-center  justify-evenly">
         <div className=" w-[1250px] ">
           <p className="font-semibold tracking-tighter text-white leading-[80px] text-[80px]">
             Affordable Housing <br /> In{" "}
-            <span className="text-[#FFC358]">Lagos Island</span>
+            <span className="text-[#FFC358]">India</span>
           </p>
           <p className="font-thin mt-[50px] text-white text-[20px]">
-            Figma ipsum component variant main layer. Text main arrange bold
-            layer.
-            <br /> Main export device create outline ellipse auto. Plugin create
-            rotate stroke align star style <br /> edit mask
+            Find your perfect home across India. Explore modern living spaces
+            crafted for comfort and convenience.
+            <br />
+            Browse top locations, compare prices, and discover properties that
+            match your lifestyle <br /> and future goals.
           </p>
-          <button className="mt-[80px] w-[220px] h-[65px] items-center rounded-[72px] justify-between text-[20px] pr-1 pl-10   bg-white flex text-[#E7A837]">
-            view more{" "}
-            <p className="w-[55px] flex justify-center items-center h-[55px] rounded-full bg-black">
-              <MoveUpRight />
+          <button
+            onClick={() => navigate("/properties")}
+            className="mt-[80px] w-[220px] h-[65px] items-center rounded-[72px] 
+  justify-between text-[20px] pr-1 pl-10 bg-white flex text-[#E7A837]
+  transition-all duration-300 group
+  hover:bg-[#E7A837] hover:text-black hover:shadow-lg hover:scale-105"
+          >
+            view more
+            <p
+              className="w-[55px] flex justify-center items-center h-[55px] rounded-full bg-black
+    transition-all duration-300 group-hover:bg-white group-hover:rotate-45"
+            >
+              <MoveUpRight className="text-[#E7A837] group-hover:text-black transition-all duration-300" />
             </p>
           </button>
+          {/* banner text area ends !!! */}
         </div>
         {/* hero section second container the blur container */}
         <div className="  backdrop-blur-md p-6 rounded-[40px]  h-[250px] w-[1250px] ">
           <div className="flex gap-[40px]">
-            <p className="text-[30px] text-[#E7A837] font-semibold">
-              Buy
-            </p>
+            <p className="text-[30px] text-[#E7A837] font-semibold">Buy</p>
           </div>
+          {/* this the drop down is section !!!! */}
+          <div className="flex mt-5 items-end gap-10">
+            <CustomDropdown
+              label="Location"
+              options={cities}
+              value={location}
+              setValue={setLocation}
+            />
 
-          {/* drop down start */}
-          <div className="flex mt-5 ">
-            {/* first drop down it is  */}
-            <div className="w-[220px] h-[95px]  border-r-[3px] border-[#E7A837]">
-              <p className="text-[#E7A837] text-[25px] mt-3">Location</p>
-              <div className=" ">
-                <div className="relative inline-block group mt-4 font-thin">
-                  <select
-                    value={selected}
-                    onChange={(e) => setSelected(e.target.value)}
-                    className="
-            appearance-none 
-            bg-transparent 
-            text-white 
-            text-2xl  
-            pr-12 
-            focus:outline-none 
-            cursor-pointer
-            rounded-sm
-          "
-                  >
-                    {cities.map((city) => (
-                      <option
-                        key={city}
-                        value={city}
-                        className="bg-[#333] text-white"
-                      >
-                        {city}
-                      </option>
-                    ))}
-                  </select>
+            <CustomDropdown
+              label="Property Type"
+              options={types}
+              value={type}
+              setValue={setType}
+            />
 
-                  <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
-                    <span className="text-white text-xl font-light">
-                      {" "}
-                      <ChevronDown />
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex  w-[700px] justify-evenly">
-              {/* second drop down it is  */}
-              <div className="w-[220px] h-[95px]  border-r-[3px] border-[#E7A837]">
-                <p className="text-[#E7A837] text-[25px] mt-3">Property Type</p>
-                <div className=" ">
-                  <div className="relative inline-block group mt-4 font-thin">
-                    {/* The Blue Border & Background matching your screenshot */}
-                    <select
-                      value={selected}
-                      onChange={(e) => setSelected(e.target.value)}
-                      className="
-            appearance-none 
-            bg-transparent 
-            text-white 
-            text-2xl  
-            pr-12 
-            focus:outline-none 
-            cursor-pointer
-            rounded-sm
-          "
-                    >
-                      {cities.map((city) => (
-                        <option
-                          key={city}
-                          value={city}
-                          className="bg-[#333] text-white"
-                        >
-                          {city}
-                        </option>
-                      ))}
-                    </select>
+            <CustomDropdown
+              label="Price Range"
+              options={prices}
+              value={price}
+              setValue={setPrice}
+            />
 
-                    <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
-                      <span className="text-white text-xl font-light">
-                        {" "}
-                        <ChevronDown />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* third drop down it is */}
-              <div className="w-[220px] h-[95px]  ">
-                <p className="text-[#E7A837] text-[25px] mt-3">Price Range</p>
-                <div className=" ">
-                  <div className="relative inline-block group mt-4 font-thin">
-                    <select
-                      value={selected}
-                      onChange={(e) => setSelected(e.target.value)}
-                      className="
-            appearance-none 
-            bg-transparent 
-            text-white 
-            text-2xl  
-            pr-12 
-            focus:outline-none 
-            cursor-pointer
-            rounded-sm
-          "
-                    >
-                      {cities.map((city) => (
-                        <option
-                          key={city}
-                          value={city}
-                          className="bg-[#333] text-white"
-                        >
-                          {city}
-                        </option>
-                      ))}
-                    </select>
-                    <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none">
-                      <span className="text-white text-xl font-light">
-                        {" "}
-                        <ChevronDown />
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {/* drop down end */}
-            <button className="w-[190px] justify-between pr-1 pl-[38px] items-center flex h-[65px] bg-black border border-[#E7A837] rounded-[75px] text-[#E7A837] text-[20px] font-light transition-all duration-300 hover:bg-[#E7A837] hover:text-black group">
+            {/* Search Button */}
+            <button onClick={()=> navigate("/searchview")} className="w-[190px] justify-between pr-1 pl-[38px] items-center flex h-[65px] bg-black border border-[#E7A837] rounded-[75px] text-[#E7A837] text-[20px] font-light transition-all duration-300 hover:bg-[#E7A837] hover:text-black group">
               Search
               <span className="bg-white flex justify-center items-center w-[56px] h-[56px] rounded-full transition-all duration-300 group-hover:bg-black">
                 <Search className="group-hover:text-[#E7A837] transition-colors duration-300" />
               </span>
             </button>
           </div>
+          {/* dropdown is end here !!!! */}
         </div>
       </div>
 
@@ -248,11 +166,17 @@ const Home = () => {
           </div>
           <button
             onClick={() => navigate("/gallery")}
-            className="mt-[50px] w-[220px] h-[65px] items-center rounded-[72px] justify-between text-[20px] pr-1 pl-10 border-2 border-[#E7A837]  bg-white flex text-[#E7A837]"
+            className="mt-[80px] w-[220px] h-[65px] items-center rounded-[72px] 
+  justify-between text-[20px] pr-1 pl-10 bg-white flex text-[#E7A837]
+  transition-all duration-300 group
+  hover:bg-[#E7A837] hover:text-black hover:shadow-lg hover:scale-105"
           >
-            view more{" "}
-            <p className="w-[55px]  flex justify-center items-center h-[55px] rounded-full bg-black">
-              <MoveUpRight />
+            view more
+            <p
+              className="w-[55px] flex justify-center items-center h-[55px] rounded-full bg-black
+    transition-all duration-300 group-hover:bg-white group-hover:rotate-45"
+            >
+              <MoveUpRight className="text-[#E7A837] group-hover:text-black transition-all duration-300" />
             </p>
           </button>
         </div>

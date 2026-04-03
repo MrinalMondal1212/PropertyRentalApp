@@ -19,6 +19,7 @@ import Properties from "../pages/Properties";
 import Services from "../pages/Services";
 import Checkout from "../component/Checkout";
 import MyOrders from "../pages/MyOrders";
+import SearchView from "../pages/SearchView";
 
 const Routing = createBrowserRouter([
   {
@@ -64,6 +65,10 @@ const Routing = createBrowserRouter([
       {
         path: "myorders",
         element: <MyOrders />,
+      },
+      {
+        path: "searchview",
+        element: <SearchView />,
       },
     ],
   },
