@@ -35,7 +35,7 @@ const Addproperties = () => {
     dispatch(productsList());
   }, [dispatch]);
   const [open, setOpen] = useState(false);
-
+  const LOCATIONS = ["kolkata", "pune", "mumbai", "bangalore", "delhi"];
   // function for form submission
   const [imageFile, setImageFile] = useState<File | null>(null);
   const [formData, setFormData] = useState({
@@ -113,14 +113,21 @@ const Addproperties = () => {
                 fullWidth
                 sx={{ marginBottom: "24px" }}
               />
-              <TextField
-                name="location"
-                label="location"
-                onChange={handleChange}
-                fullWidth
-                sx={{ marginBottom: "24px" }}
-              />
-
+              <FormControl fullWidth sx={{ marginBottom: "24px" }}>
+                <InputLabel>Location</InputLabel>
+                <Select
+                  name="location"
+                  value={formData.location}
+                  label="Location"
+                  onChange={handleChange}
+                >
+                  {LOCATIONS.map((loc) => (
+                    <MenuItem key={loc} value={loc}>
+                      {loc.charAt(0).toUpperCase() + loc.slice(1)}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               <TextField
                 name="description"
                 label="description"

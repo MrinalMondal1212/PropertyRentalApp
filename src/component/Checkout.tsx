@@ -5,17 +5,17 @@ import { useEffect, useState } from "react";
 import { productsList } from "../store/adminproducts/adminproducts.thunk";
 import { fakeRazorpay } from "../utils/fakePayment";
 import { databases } from "../lib/appwriteConfig";
-import {
-  DATABASE_ID,
-  BOOKINGS_COLLECTION_ID,
-} from "../lib/appwriteConfig";
+import { account } from "../lib/appwriteConfig";
+import { DATABASE_ID, BOOKINGS_COLLECTION_ID } from "../lib/appwriteConfig";
 import type { AppDispatch } from "../store/adminproducts/adminproductsSlice";
+import toast from "react-hot-toast";
+import { DollarSign, MapPin } from "lucide-react";
 
 const Checkout = () => {
   const { id } = useParams();
   const dispatch = useDispatch<AppDispatch>();
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { properties } = useSelector((state: any) => state.adminproducts);
 
@@ -34,75 +34,94 @@ const Checkout = () => {
     try {
       setLoading(true);
 
-      // Fake Razorpay
+      const user = await account.get(); // already protected
+
       const res: any = await fakeRazorpay(property.price);
 
-      // Save booking in Appwrite
       await databases.createDocument(
         DATABASE_ID,
         BOOKINGS_COLLECTION_ID,
         "unique()",
         {
-          userId: "demoUser", // later replace with real user
+          userId: user.$id,
           propertyId: property.$id,
           propertyName: property.name,
+          propertyImage: property.image,
           amount: property.price,
           paymentId: res.paymentId,
           status: "paid",
-           propertyImage: property.image, 
-        }
+        },
       );
 
-      alert("Payment Successful ✅");
-      navigate("/myorders")
+      toast.success("Payment Successful ✅");
+      navigate("/myorders");
     } catch (err) {
-      console.log(err);
-      alert("Payment Failed ❌");
+      toast.error("Payment Failed ❌");
     } finally {
       setLoading(false);
     }
   };
+  useEffect(() => {
+    const checkUser = async () => {
+      try {
+        await account.get(); // ✅ if logged in → OK
+      } catch {
+        toast.error("Please login first 🔐");
+        navigate("/login");
+      }
+    };
 
-  return (
-    <div className="flex justify-center mt-[120px] px-4">
-      <div className="w-full max-w-[900px] border p-5 rounded-xl shadow-lg">
-        
-        {/* Image */}
-        <img
-          src={
-            property.image.startsWith("http")
-              ? property.image
-              : storage.getFileView(BUCKET_ID, property.image)
-          }
-          className="w-full h-[400px] object-cover rounded-xl"
-        />
+    checkUser();
+  }, []);
 
-        {/* Details */}
-        <div className="mt-5">
-          <h1 className="text-3xl font-bold">{property.name}</h1>
-          <p className="text-xl mt-2">Price: ₹{property.price}</p>
-          <p className="mt-2">Location: {property.location}</p>
-          <p className="mt-2">Type: {property.type}</p>
-          <p className="mt-2 text-gray-600">{property.description}</p>
-        </div>
+ return (
+  <div className="flex justify-center mt-[150px] px-4">
+    <div className="w-full max-w-[700px] border p-4 rounded-xl shadow-md">
+      
+      {/* Image */}
+      <img
+        src={
+          property.image.startsWith("http")
+            ? property.image
+            : storage.getFileView(BUCKET_ID, property.image)
+        }
+        className="w-full h-[260px] object-cover rounded-lg"
+      />
 
-        {/* Payment Section */}
-        <div className="mt-6 border-t pt-4">
-          <h2 className="text-2xl font-semibold">
-            Total: ₹{property.price}
-          </h2>
+      {/* Details */}
+      <div className="mt-4">
+        <h1 className="text-2xl font-bold">{property.name}</h1>
+        <p className="text-lg flex gap-1 mt-1"><DollarSign color="green"/> {property.price}</p>
+        <p className="mt-1 text-lg flex gap-1 text-gray-600"><MapPin color="red"/>{property.location}</p>
+        <p className="mt-1 text-sm">{property.type}</p>
+        <p className="mt-2 text-sm text-gray-500 line-clamp-3">
+          {property.description}
+        </p>
+      </div>
 
-          <button
-            onClick={handlePayment}
-            disabled={loading}
-            className="mt-5 w-full h-[60px] bg-black text-white rounded-xl hover:bg-green-600 transition disabled:opacity-50"
-          >
-            {loading ? "Processing..." : "Proceed to Payment"}
-          </button>
-        </div>
+      {/* Payment */}
+      <div className="mt-5 border-t pt-3">
+        <h2 className="text-xl font-semibold">Total: ₹ {property.price}</h2>
+
+        <button
+          onClick={handlePayment}
+          disabled={loading}
+          className="
+            mt-4 w-full h-[50px] 
+            border border-[#E7A837] 
+            text-[#E7A837] 
+            rounded-lg 
+            hover:bg-[#E7A837] hover:text-black 
+            transition-all duration-300 
+            disabled:opacity-50
+          "
+        >
+          {loading ? "Processing..." : "Proceed to Payment"}
+        </button>
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default Checkout;

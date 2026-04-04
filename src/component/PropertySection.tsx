@@ -1,5 +1,3 @@
-// import "swiper/css";
-// import "swiper/css/navigation";
 import { Navigation } from "swiper/modules";
 import { BUCKET_ID, storage } from "../lib/appwriteConfig";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -7,56 +5,81 @@ import { useNavigate } from "react-router-dom";
 
 const PropertySection = ({ title, data }: any) => {
   const navigate = useNavigate();
+
   const handleBuy = (property: any) => {
     navigate(`/checkout/${property.$id}`);
   };
 
   return (
-    <div className="w-[1250px] mt-10 ">
-      <div className=" flex justify-between tracking-tighter leading-none">
-        <p className="font-semibold text-[65px]">
-          Check On All <br /> <span className="text-[#FFC358]">Properties</span>
-        </p>
-        <div className="flex items-end text-[65px] font-semibold text-[#0000004D]/30">
-          <p>{title}</p>
-        </div>
+    <div className="max-w-[1200px] w-full mx-auto mt-12 px-4">
+      
+      {/* Header */}
+      <div className="flex justify-between items-end mb-6">
+        <h2 className="text-3xl font-bold">
+          Explore <span className="text-[#E7A837]">Properties</span>
+        </h2>
+        <p className="text-2xl text-gray-400 font-semibold">{title}</p>
       </div>
-      {/* <p className="text-4xl font-semibold mb-6">{title}</p> */}
+
+      {/* Slider */}
       <Swiper
         modules={[Navigation]}
         spaceBetween={20}
         slidesPerView={2}
         navigation
         loop={true}
-        className="mt-[45px]"
       >
         {data.map((property: any) => (
           <SwiperSlide key={property.$id}>
-            <div className=" border border-[#E7A837] p-3 rounded-2xl overflow-hidden">
+            <div
+              className="
+                border border-gray-200 
+                rounded-xl 
+                overflow-hidden 
+                hover:shadow-lg 
+                transition-all duration-300
+              "
+            >
+              {/* Image */}
               <img
                 src={
                   property.image.startsWith("http")
                     ? property.image
                     : storage.getFileView(BUCKET_ID, property.image)
                 }
-                className="h-[450px] w-full rounded-xl  object-cover"
+                className="h-[360px] w-full object-cover"
               />
 
-              <div className="p-3">
-                <p className="font-bold">{property.name}</p>
-                <p>
-                  <span>Price : </span>
-                  {property.price}
-                </p>
-                <p>
-                  <span>Location : </span>
-                  {property.location}
-                </p>
-                <p>
-                  <span>Description : </span>
-                  {property.description}
-                </p>
-                <button onClick={()=> handleBuy(property)} className="w-[190px] justify-center mt-[25px] font-semibold  items-center flex h-[65px] bg-black border border-[#E7A837] rounded-[75px] text-[#E7A837] text-[20px] transition-all duration-300 hover:bg-[#E7A837] hover:text-black group">
+              {/* Content */}
+              <div className="p-4 flex flex-col justify-between h-[200px]">
+                <div>
+                  <p className="font-semibold text-lg">{property.name}</p>
+
+                  <p className="text-sm text-gray-500 mt-1">
+                    📍 {property.location}
+                  </p>
+
+                  <p className="text-[#E7A837] font-semibold mt-1">
+                    ₹ {property.price}
+                  </p>
+
+                  <p className="text-sm text-gray-500 mt-2 line-clamp-2">
+                    {property.description}
+                  </p>
+                </div>
+
+                {/* Button */}
+                <button
+                  onClick={() => handleBuy(property)}
+                  className="
+                    mt-3 w-full h-[45px] 
+                    border border-[#E7A837] 
+                    text-[#E7A837] 
+                    rounded-lg 
+                    hover:bg-[#E7A837] hover:text-black 
+                    transition-all duration-300
+                  "
+                >
                   Buy Now
                 </button>
               </div>
@@ -67,4 +90,5 @@ const PropertySection = ({ title, data }: any) => {
     </div>
   );
 };
+
 export default PropertySection;

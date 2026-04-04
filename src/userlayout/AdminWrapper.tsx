@@ -3,6 +3,7 @@
 
 import { Outlet } from "react-router-dom";
 import Sidebar from "../component/Sidebar";
+import ScrollToTop from "../function/ScrollToTop";
 
 
 const AdminWrapper = () => {
@@ -16,6 +17,7 @@ const AdminWrapper = () => {
       {/* 2. The Dynamic Middle Part (70% width) */}
       {/* overflow-y-auto allows the middle to scroll while sidebars stay still */}
       <main className="flex-1 bg-[#F5F7FB] overflow-y-auto">
+        <ScrollToTop/>
         <Outlet />
       </main>
 

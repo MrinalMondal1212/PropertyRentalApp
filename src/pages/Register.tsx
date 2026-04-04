@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { Mail, Lock, User } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -177,6 +177,12 @@ const Register = () => {
               {loading ? "Creating..." : "Sign Up"}
             </button>
           </form>
+          <div className="text-center mt-1">
+          <Link to="/" className="text-black font-bold underline">
+            Back to Home
+          </Link>
+
+          </div>
         </div>
       </div>
     </div>

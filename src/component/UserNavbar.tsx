@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import { ChevronDown, Mail, MoveUpRight, PhoneCall } from "lucide-react";
+import { CheckCheck, ChevronDown, Clock,  MoveUpRight,Star } from "lucide-react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 const UserNavbar = () => {
   const navigate = useNavigate();
@@ -18,22 +18,15 @@ const UserNavbar = () => {
             <div className="w-[1600px] h-[60px] rounded-[40px] text-white bg-black flex items-center px-5 mt-1">
               <div className="flex w-full justify-between items-center">
                 {/* Contact Info */}
-                <div className="flex items-center gap-6">
-                  <p className="flex items-center gap-2">
-                    <PhoneCall size={20} color="#E7A837" />
-                    <span>+91 9883227178</span>
-                  </p>
-
-                  <p className="flex items-center gap-2">
-                    <Mail size={20} color="#E7A837" />
-                    <span>mrinalmondal9883@gmail.com</span>
-                  </p>
+                {/* Value Info */}
+                <div className="flex items-center gap-8 text-sm">
+                  <p className="text-gray-300 flex gap-2 text-base"><CheckCheck/> Verified Properties</p>
+                  <p className="text-gray-300 flex gap-2 text-base "><Star color="yellow"/> Trusted by 500+ Users</p>
+                  <p className="text-gray-300 flex gap-2 text-base"><Clock/> 24/7 Support</p>
                 </div>
 
                 {/* Language + Login */}
                 <div className="flex gap-4">
-                  
-
                   <button
                     onClick={() => navigate("/register")}
                     className="flex items-center gap-2 px-6 py-2 border border-transparent rounded-full transition-all duration-300 hover:bg-black hover:text-[#E7A837] font-medium"
@@ -61,7 +54,7 @@ const UserNavbar = () => {
           </div>
 
           {/* Main Navbar */}
-          <div className="w-[1600px] flex justify-between">
+          <div className="w-[1600px] flex justify-between ">
             {/* Menu Section */}
             <div className="w-[1418px] h-[60px] rounded-[40px] text-white bg-black flex items-center px-5 mt-1">
               <div className="flex w-full items-center">
@@ -96,8 +89,6 @@ const UserNavbar = () => {
                   >
                     Our Services
                   </NavLink>
-
-
 
                   <NavLink
                     className={({ isActive }) =>
@@ -140,7 +131,9 @@ const UserNavbar = () => {
 
             {/* Contact Button */}
             <div className="w-[170px] h-[60px] rounded-[40px] text-white bg-black flex items-center justify-between pl-5 mt-1 pr-1">
-              <p className="text-[#E7A837] transition-all duration-300 hover:bg-black hover:text-white cursor-pointer">Contact Us</p>
+              <p className="text-[#E7A837] transition-all duration-300 hover:bg-black hover:text-white cursor-pointer">
+                Contact Us
+              </p>
 
               <Link
                 to="/contactus"

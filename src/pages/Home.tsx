@@ -1,6 +1,6 @@
 // import React from 'react'
 
-import {  MoveUpRight, Search } from "lucide-react";
+import { MoveUpRight, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -16,11 +16,9 @@ const Home = () => {
   const navigate = useNavigate();
   const [location, setLocation] = useState("Kolkata");
   const [type, setType] = useState("Villa");
-  const [price, setPrice] = useState("₹5000");
 
   const cities = ["Kolkata", "Delhi", "Pune", "Bangalore", "Mumbai"];
   const types = ["Villa", "Apartment", "Bungalow"];
-  const prices = ["₹5000", "₹10000", "₹20000"];
 
   const { properties, loading, error } = useSelector(
     (state: any) => state.adminproducts,
@@ -84,42 +82,49 @@ const Home = () => {
             <p className="text-[30px] text-[#E7A837] font-semibold">Buy</p>
           </div>
           {/* this the drop down is section !!!! */}
-          <div className="flex mt-5 items-end gap-10">
-            <CustomDropdown
-              label="Location"
-              options={cities}
-              value={location}
-              setValue={setLocation}
-            />
+          <div className="flex justify-between mt-5  gap-10">
+            <div className="flex  gap-[55px]">
+              <CustomDropdown
+                label="Location"
+                options={cities}
+                value={location}
+                setValue={setLocation}
+              />
 
-            <CustomDropdown
-              label="Property Type"
-              options={types}
-              value={type}
-              setValue={setType}
-            />
+              <CustomDropdown
+                label="Property Type"
+                options={types}
+                value={type}
+                setValue={setType}
+              />
+            </div>
 
-            <CustomDropdown
-              label="Price Range"
-              options={prices}
-              value={price}
-              setValue={setPrice}
-            />
-
-            {/* Search Button */}
-            <button onClick={()=> navigate("/searchview")} className="w-[190px] justify-between pr-1 pl-[38px] items-center flex h-[65px] bg-black border border-[#E7A837] rounded-[75px] text-[#E7A837] text-[20px] font-light transition-all duration-300 hover:bg-[#E7A837] hover:text-black group">
-              Search
-              <span className="bg-white flex justify-center items-center w-[56px] h-[56px] rounded-full transition-all duration-300 group-hover:bg-black">
-                <Search className="group-hover:text-[#E7A837] transition-colors duration-300" />
-              </span>
-            </button>
+            <div className="flex items-end">
+              {/* Search Button */}
+              <button
+                onClick={() =>
+                  navigate("/searchview", {
+                    state: {
+                      location,
+                      type,
+                    },
+                  })
+                }
+                className="w-[190px] justify-between pr-1 pl-[38px] items-center flex h-[65px] bg-black border border-[#E7A837] rounded-[75px] text-[#E7A837] text-[20px] font-light transition-all duration-300 hover:bg-[#E7A837] hover:text-black group"
+              >
+                Search
+                <span className="bg-white flex justify-center items-center w-[56px] h-[56px] rounded-full transition-all duration-300 group-hover:bg-black">
+                  <Search className="group-hover:text-[#E7A837] transition-colors duration-300" />
+                </span>
+              </button>
+            </div>
           </div>
           {/* dropdown is end here !!!! */}
         </div>
       </div>
 
       {/* this is the villa section over here !!!!! */}
-      <div className=" justify-between gap-4  mb-[125px]  mt-[120px] flex flex-wrap w-[1250px] ">
+      <div className=" justify-between gap-4  mb-[80px]  mt-[120px] flex flex-wrap w-[1250px] ">
         <PropertySection title="Villas" data={villas} />
       </div>
 
@@ -182,11 +187,11 @@ const Home = () => {
         </div>
       </div>
       {/* this  is the apratments section  here !!!!! */}
-      <div className="w-[1250px] h-[100vh]  mb-[125px]">
+      <div className="w-[1250px] h-[50vh] mb-[250px] ">
         <PropertySection title="Apartments" data={apartments} />
       </div>
       {/* this is the bunglow section !!!!!!! */}
-      <div className="w-[1250px] h-[100vh] mb-[125px]">
+      <div className="w-[1250px] h-[50vh]  mb-[150px]">
         <PropertySection title="Bungalows" data={bungalows} />
       </div>
     </div>

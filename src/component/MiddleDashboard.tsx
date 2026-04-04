@@ -35,7 +35,7 @@ const MiddleDashboard = () => {
 
   // showing city and apratment via pie chart and bar chart
   const locationData = properties.reduce((acc: any, curr: any) => {
-    const location = curr.location; // from Appwrite
+    const location = curr.location?.trim().toLowerCase(); // from Appwrite
 
     if (!acc[location]) {
       acc[location] = 0;

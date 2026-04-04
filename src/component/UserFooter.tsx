@@ -28,16 +28,16 @@ const UserFooter = () => {
                 ABOUT US
               </Link>
               <Link
-                to="/ourservices"
+                to="/services"
                 className="hover:text-[#E7A837] cursor-pointer"
               >
                 OUR SERVICE
               </Link>
               <Link
-                to="/communities"
+                to="/myorders"
                 className="hover:text-[#E7A837] cursor-pointer"
               >
-                COMMUNITIES
+                MY ORDERS
               </Link>
               <Link
                 to="/gallery"
@@ -46,16 +46,16 @@ const UserFooter = () => {
                 GALLERY
               </Link>
               <Link
-                to="/portfolio"
+                to="/properties"
                 className="hover:text-[#E7A837] cursor-pointer"
               >
-                PORTFOLIO
+                PROPERTIES
               </Link>
               <Link to="/faq" className="hover:text-[#E7A837] cursor-pointer">
                 FAQ
               </Link>
               <Link
-                to="/termsandcondition"
+                to="/termsandconditions"
                 className="hover:text-[#E7A837] cursor-pointer"
               >
                 TERMS AND CONDITIONS
