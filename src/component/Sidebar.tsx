@@ -8,10 +8,22 @@ import {
   SquareChartGantt,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
+import { account } from "../lib/appwriteConfig";
+import toast from "react-hot-toast";
 // import { Link } from "react-router-dom";
 
 const Sidebar = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await account.deleteSession("current");
+      toast.success("Logged out successfully 👋"); // 🔥 delete current session
+      navigate("/"); // 🔥 redirect to home
+    } catch (error) {
+      console.log(error);
+       toast.error("Logout failed ❌");
+    }
+  };
   const normalLink =
     "flex gap-[30px] p-2 rounded-lg transition-all text-gray-600";
   const activeLink =
@@ -66,7 +78,10 @@ const Sidebar = () => {
       </div>
 
       {/* Logout at the bottom */}
-      <div onClick={()=> navigate("/")} className="flex items-end cursor-pointer hover:text-red-500 transition-colors">
+      <div
+        onClick={handleLogout}
+        className="flex items-end cursor-pointer hover:text-red-500 transition-colors"
+      >
         <p className="flex gap-[30px]">
           <LogOut /> Log Out
         </p>
