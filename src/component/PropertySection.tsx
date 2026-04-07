@@ -2,17 +2,24 @@ import { Navigation } from "swiper/modules";
 import { BUCKET_ID, storage } from "../lib/appwriteConfig";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useSelector } from "react-redux";
 
 const PropertySection = ({ title, data }: any) => {
   const navigate = useNavigate();
 
+  const { isAuthenticated } = useSelector((state: any) => state.auth);
   const handleBuy = (property: any) => {
+    if (!isAuthenticated) {
+      toast.error("Please login first ⚠️");
+      return;
+    }
+
     navigate(`/checkout/${property.$id}`);
   };
 
   return (
     <div className="max-w-[1200px] w-full mx-auto mt-12 px-4">
-      
       {/* Header */}
       <div className="flex justify-between items-end mb-6">
         <h2 className="text-3xl font-bold">

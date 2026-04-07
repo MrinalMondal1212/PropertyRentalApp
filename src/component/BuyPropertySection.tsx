@@ -1,14 +1,22 @@
 import { useNavigate } from "react-router-dom";
 import { BUCKET_ID, storage } from "../lib/appwriteConfig";
 import { DollarSign, MapPin } from "lucide-react";
+import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
 
 const AllProperties = ({ data }: any) => {
   const navigate = useNavigate();
 
+ const { isAuthenticated } = useSelector((state: any) => state.auth); // ✅ correct place
+
   const handleBuy = (property: any) => {
+    if (!isAuthenticated) {
+      toast.error("Please login first ⚠️");
+      return;
+    }
+
     navigate(`/checkout/${property.$id}`);
   };
-
   return (
     <div className="flex  mt-[150px] flex-col items-center">
       {/* Simple Header */}

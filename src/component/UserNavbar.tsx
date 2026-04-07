@@ -1,9 +1,31 @@
 // import React from 'react'
-
-import { CheckCheck, ChevronDown, Clock,  MoveUpRight,Star } from "lucide-react";
+import { useSelector, useDispatch } from "react-redux";
+import { account } from "../lib/appwriteConfig";
+import { logout } from "../store/authSlice";
+import {
+  CheckCheck,
+  ChevronDown,
+  Clock,
+  MoveUpRight,
+  Star,
+} from "lucide-react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 const UserNavbar = () => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state: any) => state.auth);
+  const dispatch = useDispatch();
+
+  const handleLogout = async () => {
+    try {
+      await account.deleteSession("current"); // 🔥 delete session
+      dispatch(logout()); // clear redux
+      navigate("/");
+      toast.success("logout Sucessfull")
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const normalLink =
     "flex gap-[30px] p-2 rounded-lg transition-all text-white-600";
@@ -20,30 +42,51 @@ const UserNavbar = () => {
                 {/* Contact Info */}
                 {/* Value Info */}
                 <div className="flex items-center gap-8 text-sm">
-                  <p className="text-gray-300 flex gap-2 text-base"><CheckCheck/> Verified Properties</p>
-                  <p className="text-gray-300 flex gap-2 text-base "><Star color="yellow"/> Trusted by 500+ Users</p>
-                  <p className="text-gray-300 flex gap-2 text-base"><Clock/> 24/7 Support</p>
+                  <p className="text-gray-300 flex gap-2 text-base">
+                    <CheckCheck /> Verified Properties
+                  </p>
+                  <p className="text-gray-300 flex gap-2 text-base ">
+                    <Star color="yellow" /> Trusted by 500+ Users
+                  </p>
+                  <p className="text-gray-300 flex gap-2 text-base">
+                    <Clock /> 24/7 Support
+                  </p>
                 </div>
 
                 {/* Login */}
                 <div className="flex gap-4">
-                  <button
-                    onClick={() => navigate("/register")}
-                    className="flex items-center gap-2 px-6 py-2 border border-transparent rounded-full transition-all duration-300 hover:bg-black hover:text-[#E7A837] font-medium"
-                  >
-                    Register
-                    <ChevronDown size={18} />
-                  </button>
-                  <button
-                    onClick={() => navigate("/login")}
-                    className="flex items-center gap-2 px-6 py-2 border border-transparent rounded-full transition-all duration-300 hover:bg-black hover:text-[#E7A837] font-medium"
-                  >
-                    Log In
-                    <ChevronDown size={18} />
-                  </button>
+                  {!isAuthenticated ? (
+                    <>
+                      <button
+                        onClick={() => navigate("/register")}
+                        className="flex items-center gap-2 px-6 py-2 rounded-full hover:text-[#E7A837]"
+                      >
+                        Register
+                        <ChevronDown size={18} />
+                      </button>
+
+                      <button
+                        onClick={() => navigate("/login")}
+                        className="flex items-center gap-2 px-6 py-2 rounded-full hover:text-[#E7A837]"
+                      >
+                        Log In
+                        <ChevronDown size={18} />
+                      </button>
+                    </>
+                  ) : (
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-2 px-6 py-2 rounded-full bg-[#E7A837] text-white"
+                    >
+                      Logout
+                      <ChevronDown size={18} />
+                    </button>
+                  )}
+
+                  {/* Always visible */}
                   <button
                     onClick={() => navigate("/myorders")}
-                    className="flex items-center gap-2 px-6 py-2 border border-transparent rounded-full transition-all duration-300 hover:bg-black hover:text-[#E7A837] font-medium"
+                    className="flex items-center gap-2 px-6 py-2 rounded-full hover:text-[rgb(231,168,55)]"
                   >
                     My Orders
                     <ChevronDown size={18} />

@@ -20,6 +20,8 @@ import Services from "../pages/Services";
 import Checkout from "../component/Checkout";
 import MyOrders from "../pages/MyOrders";
 import SearchView from "../pages/SearchView";
+import ProtectedRoute from "../component/ProtectedRoute";
+import AdminRoute from "../component/AdminRoute";
 
 const Routing = createBrowserRouter([
   {
@@ -60,11 +62,19 @@ const Routing = createBrowserRouter([
       },
       {
         path: "/checkout/:id",
-        element: <Checkout />,
+        element: (
+          <ProtectedRoute>
+            <Checkout />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "myorders",
-        element: <MyOrders />,
+        element: (
+          <ProtectedRoute>
+            <MyOrders />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "searchview",
@@ -84,7 +94,11 @@ const Routing = createBrowserRouter([
   // this is the admin routes and very complecated
   {
     path: "admindashboard",
-    element: <AdminWrapper />,
+    element: (
+      <AdminRoute>
+        <AdminWrapper />
+      </AdminRoute>
+    ),
 
     children: [
       {
@@ -111,7 +125,6 @@ const Routing = createBrowserRouter([
         path: "removeproperties",
         element: <RemoveProperties />,
       },
-    
     ],
   },
 ]);
