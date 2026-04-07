@@ -45,14 +45,14 @@ const Register = () => {
     try {
       setLoading(true);
 
-      // ✅ Call thunk
+      //  Call thunk
       const res = await dispatch(registerUser(data));
 
-      // ✅ Check success
+      //  Check success
       if (res.meta.requestStatus === "fulfilled") {
         const user = res.payload;
 
-        // 🔥 Redirect based on role
+        //  Redirect based on role
         if (user.role === "admin") {
           navigate("/admindashboard");
         } else {

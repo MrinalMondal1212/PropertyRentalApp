@@ -65,7 +65,7 @@ const MiddleDashboard = () => {
         USERS_COLLECTION_ID
       );
 
-      setCount(res.total); // 🔥 important
+      setCount(res.total); //  important
     } catch (err) {
       console.log(err);
     }

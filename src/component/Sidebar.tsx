@@ -5,7 +5,6 @@ import {
   Delete,
   LayoutDashboard,
   LogOut,
-  SquareChartGantt,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { account } from "../lib/appwriteConfig";
@@ -63,12 +62,12 @@ const Sidebar = () => {
         >
           <Delete /> Remove
         </NavLink>
-        <NavLink
+        {/* <NavLink
           to="/admindashboard/manageproperties"
           className={({ isActive }) => (isActive ? activeLink : normalLink)}
         >
           <SquareChartGantt /> Manage
-        </NavLink>
+        </NavLink> */}
         <NavLink
           to="/admindashboard/booking"
           className={({ isActive }) => (isActive ? activeLink : normalLink)}

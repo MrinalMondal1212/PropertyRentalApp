@@ -29,7 +29,7 @@ const Checkout = () => {
     return <p className="text-center mt-10">Property not found</p>;
   }
 
-  // 🚀 PAYMENT HANDLER
+  //  PAYMENT HANDLER
   const handlePayment = async () => {
     try {
       setLoading(true);
@@ -64,7 +64,7 @@ const Checkout = () => {
   useEffect(() => {
     const checkUser = async () => {
       try {
-        await account.get(); // ✅ if logged in → OK
+        await account.get(); //  if logged in → OK
       } catch {
         toast.error("Please login first 🔐");
         navigate("/login");

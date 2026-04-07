@@ -25,7 +25,7 @@ const UserNavbar = () => {
                   <p className="text-gray-300 flex gap-2 text-base"><Clock/> 24/7 Support</p>
                 </div>
 
-                {/* Language + Login */}
+                {/* Login */}
                 <div className="flex gap-4">
                   <button
                     onClick={() => navigate("/register")}

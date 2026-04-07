@@ -10,12 +10,12 @@ const AllProperties = ({ data }: any) => {
   };
 
   return (
-    <div className="flex justify-center mt-[150px] flex-col items-center">
+    <div className="flex  mt-[150px] flex-col items-center">
       {/* Simple Header */}
       <h1 className="text-2xl font-bold mb-5">All Properties</h1>
 
       {/* Properties */}
-      <div className="flex w-[1400px] flex-wrap gap-4">
+      <div className="max-w-[1400px] w-full flex flex-wrap justify-center gap-6">
         {data.map((property: any) => (
           <div
             key={property.$id}

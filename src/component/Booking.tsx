@@ -57,7 +57,7 @@ const Booking = () => {
                 key={item.$id}
                 className="flex gap-4 border border-[#E7A837] p-4 rounded-xl shadow hover:shadow-lg transition-all"
               >
-                {/* 🖼️ Image */}
+                {/*  Image */}
                 <img
                   src={
                     item.propertyImage
@@ -69,7 +69,7 @@ const Booking = () => {
                   className="w-[120px] h-[100px] object-cover rounded-lg"
                 />
 
-                {/* 📦 Details */}
+                {/*  Details */}
                 <div className="flex flex-col justify-between w-full">
                   <div>
                     <p className="font-semibold text-lg">{item.propertyName}</p>
