@@ -6,7 +6,7 @@ import {
   PROPERTIES_COLLECTION_ID,
   storage,
 } from "../../lib/appwriteConfig";
-import { ID } from "appwrite";
+import { ID, Query } from "appwrite";
 
 // ✅ GET ALL PRODUCTS
 export const productsList = createAsyncThunk(
@@ -16,6 +16,9 @@ export const productsList = createAsyncThunk(
       const response = await databases.listDocuments(
         DATABASE_ID,
         PROPERTIES_COLLECTION_ID,
+        [
+          Query.orderDesc("$createdAt"), // ✅ newest first
+        ],
       );
 
       // ✅ IMPORTANT: Convert Appwrite data → your format

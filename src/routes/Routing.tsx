@@ -6,11 +6,9 @@ import Gallery from "../pages/Gallery";
 import ContactUs from "../pages/ContactUs";
 import AdminWrapper from "../userlayout/AdminWrapper";
 import Addproperties from "../component/Addproperties";
-import ManageProperties from "../component/ManageProperties";
 import Booking from "../component/Booking";
 import RemoveProperties from "../component/RemoveProperties";
 import MiddleDashboard from "../component/MiddleDashboard";
-import Adminproperties from "../component/Adminproperties";
 import Register from "../pages/Register";
 import Login from "../pages/Login";
 import FAQ from "../component/FAQ";
@@ -106,16 +104,8 @@ const Routing = createBrowserRouter([
         element: <MiddleDashboard />,
       },
       {
-        path: "adminproperties",
-        element: <Adminproperties />,
-      },
-      {
         path: "addproperties",
         element: <Addproperties />,
-      },
-      {
-        path: "manageproperties",
-        element: <ManageProperties />,
       },
       {
         path: "booking",

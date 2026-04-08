@@ -20,7 +20,10 @@ const MyOrders = () => {
       const res = await databases.listDocuments(
         DATABASE_ID,
         BOOKINGS_COLLECTION_ID,
-        [Query.equal("userId", user.$id)]
+        [
+          Query.equal("userId", user.$id),
+          Query.orderDesc("$createdAt")
+        ]
       );
 
       setOrders(res.documents);
