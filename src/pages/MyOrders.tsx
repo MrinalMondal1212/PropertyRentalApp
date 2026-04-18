@@ -96,7 +96,7 @@ const MyOrders = () => {
                     </p>
 
                     <p className="text-[#E7A837] font-semibold mt-2">
-                      ₹ {item.amount}
+                      $ {item.amount}
                     </p>
                   </div>
 

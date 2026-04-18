@@ -57,13 +57,13 @@ const UserNavbar = () => {
                 <div className="flex gap-4">
                   {!isAuthenticated ? (
                     <>
-                      <button
+                      {/* <button
                         onClick={() => navigate("/register")}
                         className="flex items-center gap-2 px-6 py-2 rounded-full hover:text-[#E7A837]"
                       >
                         Register
                         <ChevronDown size={18} />
-                      </button>
+                      </button> */}
 
                       <button
                         onClick={() => navigate("/login")}
